@@ -498,7 +498,7 @@ At this moment you can use this function only with WinGUI 2.3 release. MultiWiiC
   /******                Serial com speed    *********************************/
     /* This is the speed of the serial interfaces */
     #define SERIAL0_COM_SPEED 115200
-    #define SERIAL1_COM_SPEED 115200 // used for 3DR radio
+    #define SERIAL1_COM_SPEED 57600 // used for 3DR radio
     #define SERIAL2_COM_SPEED 115200
     #define SERIAL3_COM_SPEED 115200
 
@@ -770,7 +770,7 @@ Also note, that maqgnetic declination changes with time, so recheck your value e
 #define LAND_SPEED          100
 
 
-#define ONLY_ALLOW_ARM_WITH_GPS_3DFIX      // Only allow FC arming if GPS has a 3D fix.  // Fabi
+// #define ONLY_ALLOW_ARM_WITH_GPS_3DFIX      // Only allow FC arming if GPS has a 3D fix.  // Fabi
 
   /**************************************************************************************/
   /***********************        LCD/OLED - display settings       *********************/
@@ -1143,7 +1143,7 @@ Also note, that maqgnetic declination changes with time, so recheck your value e
        Read How To at http://code.google.com/p/multiwii/wiki/ESCsCalibration */
     #define ESC_CALIB_LOW  MINCOMMAND
     #define ESC_CALIB_HIGH 2000
-    //#define ESC_CALIB_CANNOT_FLY  // uncomment to activate
+    // #define ESC_CALIB_CANNOT_FLY  // uncomment to activate
 
   /****           internal frequencies                             ****/
     /* frequenies for rare cyclic actions in the main loop, depend on cycle time

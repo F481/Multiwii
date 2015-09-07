@@ -476,9 +476,9 @@ At this moment you can use this function only with WinGUI 2.3 release. MultiWiiC
 
   /* only enable any of this if you must change the default pin assignment, e.g. your board does not have a specific pin */
   /* you may need to change PINx and PORTx plus #shift according to the desired pin! */
-  #define OVERRIDE_V_BATPIN                   A14 // instead of A3    // Analog PIN 3
+  //#define OVERRIDE_V_BATPIN                   A14 // instead of A3    // Analog PIN 3
 
-  #define OVERRIDE_PSENSORPIN                 A15 // instead of A2    // Analog PIN 2
+  //#define OVERRIDE_PSENSORPIN                 A15 // instead of A2    // Analog PIN 2
 
   //#define OVERRIDE_LEDPIN_PINMODE             pinMode (A1, OUTPUT); // use A1 instead of d13
   //#define OVERRIDE_LEDPIN_TOGGLE              PINC |= 1<<1; // PINB |= 1<<5;     //switch LEDPIN state (digital PIN 13)
@@ -498,7 +498,7 @@ At this moment you can use this function only with WinGUI 2.3 release. MultiWiiC
   /******                Serial com speed    *********************************/
     /* This is the speed of the serial interfaces */
     #define SERIAL0_COM_SPEED 115200
-    #define SERIAL1_COM_SPEED 57600 // used for 3DR radio
+    #define SERIAL1_COM_SPEED 115200 // used for 3DR radio
     #define SERIAL2_COM_SPEED 115200
     #define SERIAL3_COM_SPEED 115200
 
@@ -721,14 +721,14 @@ At this moment you can use this function only with WinGUI 2.3 release. MultiWiiC
 Convert the degree+minutes into decimal degree by ==> degree+minutes*(1/60)
 Note the sign on declination it could be negative or positive (WEST or EAST)
 Also note, that maqgnetic declination changes with time, so recheck your value every 3-6 months */
-#define MAG_DECLINATION  3.96f   //(**)
+#define MAG_DECLINATION  2.43f   //(**)
 
 // Adds a forward predictive filterig to compensate gps lag. Code based on Jason Short's lead filter implementation
 #define GPS_LEAD_FILTER               //(**)
 
 // add a 5 element moving average filter to GPS coordinates, helps eliminate gps noise but adds latency comment out to disable
 // use it with NMEA gps only 
-//#define GPS_FILTERING                 //(**)
+#define GPS_FILTERING                 //(**) // Fabi
 
 // if we are within this distance to a waypoint then we consider it reached (distance is in cm)
 #define GPS_WP_RADIUS              100      //(**)
@@ -738,12 +738,12 @@ Also note, that maqgnetic declination changes with time, so recheck your value e
 #define SAFE_WP_DISTANCE           500      //(**)
 
 //Maximu allowable navigation altitude (in meters) automatic altitude control will not go above this height
-#define MAX_NAV_ALTITUDE           100     //(**)
+#define MAX_NAV_ALTITUDE           30     //(**) // Fabi
 
 // minimum speed when approach waypoint
 #define NAV_SPEED_MIN              100    // cm/sec //(**)
 // maximum speed to reach between waypoints
-#define NAV_SPEED_MAX              400    // cm/sec //(**)
+#define NAV_SPEED_MAX              300    // cm/sec //(**)  // Fabi
 // Slow down to zero when reaching waypoint (same as NAV_SPEED_MIN = 0)
 #define NAV_SLOW_NAV               0      //(**)
 // Weight factor of the crosstrack error in navigation calculations (do not touch)
@@ -752,7 +752,7 @@ Also note, that maqgnetic declination changes with time, so recheck your value e
 #define NAV_BANK_MAX 3000                 //(**)
 
 //Defines the RTH altitude. 0 means keep current alt during RTH (in meters)
-#define RTH_ALTITUDE               15        //(**)
+#define RTH_ALTITUDE               20        //(**)  // Fabi
 //Wait to reach RTH alt before start moving to home (0-no, 1-yes)
 #define WAIT_FOR_RTH_ALT           1         //(**)
 
@@ -764,13 +764,13 @@ Also note, that maqgnetic declination changes with time, so recheck your value e
 
 //If FENCE DISTANCE is larger than 0 then copter will switch to RTH when it farther from home
 //than the defined number in meters
-#define FENCE_DISTANCE      600
+#define FENCE_DISTANCE      500  // Fabi
 
 //This governs the descent speed during landing. 100 is equals approc 50cm/sec
 #define LAND_SPEED          100
 
 
-    //#define ONLY_ALLOW_ARM_WITH_GPS_3DFIX      // Only allow FC arming if GPS has a 3D fix.
+#define ONLY_ALLOW_ARM_WITH_GPS_3DFIX      // Only allow FC arming if GPS has a 3D fix.  // Fabi
 
   /**************************************************************************************/
   /***********************        LCD/OLED - display settings       *********************/
@@ -792,7 +792,7 @@ Also note, that maqgnetic declination changes with time, so recheck your value e
       //#define OLED_DIGOLE     // I2C OLED from http://www.digole.com/index.php?productID=550
 
     /******************************   Display settings   ***********************************/
-      #define LCD_SERIAL_PORT 0    // must be 0 on Pro Mini and single serial boards; Set to your choice on any Mega based board
+      #define LCD_SERIAL_PORT 0    // must be 0 on Pro Mini and single serial boards; Set to your choice on any Mega based board  // test
 
       //#define SUPPRESS_OLED_I2C_128x64LOGO  // suppress display of OLED logo to save memory
 
@@ -891,7 +891,7 @@ Also note, that maqgnetic declination changes with time, so recheck your value e
        with R1=33k and R2=51k
        vbat = [0;1023]*16/VBATSCALE
        must be associated with #define BUZZER ! */
-    #define VBAT              // uncomment this line to activate the vbat code
+    //#define VBAT              // uncomment this line to activate the vbat code // Fabi
     #define VBATSCALE       131 // (*) (**) change this value if readed Battery voltage is different than real voltage
     #define VBATNOMINAL     126 // 12,6V full battery nominal voltage - only used for lcd.telemetry
     #define VBATLEVEL_WARN1 107 // (*) (**) 10,7V
@@ -920,13 +920,13 @@ Also note, that maqgnetic declination changes with time, so recheck your value e
        1 - hard: - (uses hardware sensor, after configuration gives very good results)
        2 - soft: - (good results +-5% for plush and mystery ESCs @ 2S and 3S, not good with SuperSimple ESC)    */
     //#define POWERMETER_SOFT
-    #define POWERMETER_HARD
+    //#define POWERMETER_HARD
     #define PSENSORNULL 95 /* (*) hard only: set to analogRead() value for zero current; for I=0A my sensor
                                    gives 1/2 Vss; that is approx 2.49Volt; */
     #define PINT2mA 132     /* (*) hard: one integer step on arduino analog translates to mA (example 4.9 / 37 * 1000) ;
                                    soft: use fictional value, start with 100.
                                    for hard and soft: larger PINT2mA will get you larger value for power (mAh equivalent) */
-    #define WATTS // compute and display the actual watts (=Volt*Ampere) consumed - requires both POWERMETER_HARD and VBAT
+    //#define WATTS // compute and display the actual watts (=Volt*Ampere) consumed - requires both POWERMETER_HARD and VBAT
 
   /********************************************************************/
   /****           altitude hold                                    ****/
@@ -991,7 +991,7 @@ Also note, that maqgnetic declination changes with time, so recheck your value e
 /*****************                                                                 ***************/
 /*************************************************************************************************/
 
-  #define VBAT_PRESCALER 16 // set this to 8 if vbatscale would exceed 255
+  // Besnik #define VBAT_PRESCALER 16 // set this to 8 if vbatscale would exceed 255
 
   /**************************************************************************************/
   /********   special ESC with extended range [0-2000] microseconds  ********************/
